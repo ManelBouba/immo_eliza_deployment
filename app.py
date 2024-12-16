@@ -106,7 +106,7 @@ def add_markers_in_bounds(start_lat, start_lon, end_lat, end_lon):
         ).add_to(marker_cluster)
 
 # Display the map with the clustering approach
-st_map = st_folium(m, width=700, height=450)
+st_map = st_folium(m, width=1400, height=450)
 
 # Safely get the bounds of the visible map area after panning/zooming
 bounds = st_map.get("bounds", None)
