@@ -68,6 +68,10 @@ body {
 .stButton>button:hover {
     background-color: #388E3C;
 }
+.st-folium {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -150,7 +154,6 @@ st.markdown("<div class='card'><h4>🏠 Main Features</h4></div>", unsafe_allow_
 col1, col2 = st.columns(2)
 with col1:
 
-    
     apartment_subtypes = [
         "PENTHOUSE", "APARTMENT", "APARTMENT_BLOCK", "DUPLEX", 
         "FLAT_STUDIO", "TRIPLEX", "GROUND_FLOOR", 
@@ -177,7 +180,6 @@ with col1:
     # Subtype Dropdown
     property_subtype = st.selectbox('Subtype of Property', filtered_subtypes)
     state_of_building = st.selectbox('State of the Building', state_of_building_unique)
-
 
 with col2:
     number_of_rooms = st.number_input('Number of Rooms', min_value=1, max_value=10, step=1)
