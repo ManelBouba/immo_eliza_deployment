@@ -43,7 +43,7 @@ immo_eliza_deployment/
 
 - The machine learning model is trained using the preprocessed data. The model is stored in `catboost_model_with_tuning.cbm`  . It uses various features like property type, number of rooms, and location to predict the price of a property.
 
-1. **Prediction**:
+3. **Prediction**:
 
 - The `predict` folder contains logic for making predictions using the trained model. The input data is prepared using the `prepare_input_data` function, and the `predict_price` function makes the prediction based on the user's input.
 
@@ -69,10 +69,10 @@ immo_eliza_deployment/
 ## Example of Prediction
 
 After selecting a location and providing property details, you will see a predicted price based on the model. For example:
-    ```yaml
+   ```yaml
     **Selected Location:** saint-gilles, 1060,Brussels Capital
      Predicted Price: €551,102.88
-    ```
+   ```
 
 ## Development
 
