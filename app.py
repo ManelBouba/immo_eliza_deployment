@@ -80,7 +80,7 @@ st.markdown("<p class='title'>House Price Prediction</p>", unsafe_allow_html=Tru
 st.markdown("<p class='description'>Select a location, provide property details, and get a price estimate instantly!</p>", unsafe_allow_html=True)
 
 # Map Section
-st.markdown("<div class='card'><h4>📍 Select a Location</h4></div>", unsafe_allow_html=True)
+st.markdown("<div class='card'><h4 class='centered-title'>📍 Select a Location</h4></div>", unsafe_allow_html=True)
 
 # Optimized Map: Start with a zoomed-out view and limit markers
 map_center = [50.8503, 4.3517]  # Center on Brussels
@@ -148,7 +148,7 @@ else:
     st.markdown("**Selected Location:** Please click on the map to select a location.")
 
 # Property Details Section
-st.markdown("<div class='card'><h4>🏠 Main Features</h4></div>", unsafe_allow_html=True)
+st.markdown("<div class='card'><h4 class='centered-title'>🏠 Main Features</h4></div>", unsafe_allow_html=True)
 
 # Main Features
 col1, col2 = st.columns(2)
@@ -182,12 +182,44 @@ with col1:
     state_of_building = st.selectbox('State of the Building', state_of_building_unique)
 
 with col2:
-    number_of_rooms = st.number_input('Number of Rooms', min_value=1, max_value=10, step=1)
+    
     number_of_facades = st.number_input('Number of Facades', min_value=1, max_value=4, step=1)
-    living_area = st.number_input('Living Area (sq. meters)', min_value=10.0, max_value=1000.0, step=1.0)
+      # Define dynamic ranges based on Property Subtype
+# Define dynamic ranges for Living Area based on Property Subtype
+    if property_subtype in apartment_subtypes:
+        living_area_min = 30.0  # Minimum Living Area for Apartment
+        living_area_max = 150.0  # Maximum Living Area for Apartment
+        number_of_rooms_min = 1  # Minimum number of rooms for Apartment
+        number_of_rooms_max = 5  # Maximum number of rooms for Apartment
+    elif property_subtype in house_subtypes:
+        living_area_min = 100.0  # Minimum Living Area for House/Villa
+        living_area_max = 500.0  # Maximum Living Area for House/Villa
+        number_of_rooms_min = 3  # Minimum number of rooms for House/Villa
+        number_of_rooms_max = 10  # Maximum number of rooms for House/Villa
+    else:
+        living_area_min = 50.0  # Default range for other properties
+        living_area_max = 300.0
+        number_of_rooms_min = 1
+        number_of_rooms_max = 10
+
+    # Living Area (now placed in the first column)
+    living_area = st.number_input(
+        'Living Area (sq. meters)', 
+        min_value=living_area_min, 
+        max_value=living_area_max, 
+        step=1.0
+    )
+
+    # Number of Rooms (placed in the first column too)
+    number_of_rooms = st.number_input(
+        'Number of Rooms', 
+        min_value=number_of_rooms_min, 
+        max_value=number_of_rooms_max, 
+        step=1
+    )
 
 # Extra Features
-st.markdown("<div class='card'><h4>✨ Extra Features</h4></div>", unsafe_allow_html=True)
+st.markdown("<div class='card'><h4 class='centered-title'>✨ Extra Features</h4></div>", unsafe_allow_html=True)
 col3, col4 = st.columns(2)
 with col3:
     fully_equipped_kitchen = st.radio('Fully Equipped Kitchen', ['Yes', 'No'], horizontal=True)
