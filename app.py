@@ -149,12 +149,35 @@ st.markdown("<div class='card'><h4>🏠 Main Features</h4></div>", unsafe_allow_
 # Main Features
 col1, col2 = st.columns(2)
 with col1:
+
+    
+    apartment_subtypes = [
+        "PENTHOUSE", "APARTMENT", "APARTMENT_BLOCK", "DUPLEX", 
+        "FLAT_STUDIO", "TRIPLEX", "GROUND_FLOOR", 
+        "LOFT", "SERVICE_FLAT", "KOT"
+    ]
+
+    house_subtypes = [
+        "HOUSE", "VILLA", "TOWN_HOUSE", "COUNTRY_COTTAGE", 
+        "BUNGALOW", "MANSION", "CHALET", 
+        "FARMHOUSE", "MANOR_HOUSE"
+    ]
+
     # Property Type Dropdown
     property_type = st.selectbox("Type of Property", ["Apartment", "House"])
 
+    # Dynamic Filtering Based on Property Type
+    if property_type == "Apartment":
+        filtered_subtypes = apartment_subtypes
+    elif property_type == "House":
+        filtered_subtypes = house_subtypes
+    else:
+        filtered_subtypes = ["MIXED_USE_BUILDING", "EXCEPTIONAL_PROPERTY", "OTHER_PROPERTY"]
+
     # Subtype Dropdown
-    property_subtype = st.selectbox('Subtype of Property', property_subtype_unique)
+    property_subtype = st.selectbox('Subtype of Property', filtered_subtypes)
     state_of_building = st.selectbox('State of the Building', state_of_building_unique)
+
 
 with col2:
     number_of_rooms = st.number_input('Number of Rooms', min_value=1, max_value=10, step=1)
