@@ -15,6 +15,7 @@ immo_eliza_deployment/
 │   ├── cleaning_data.py                             # Scripts for cleaning and preprocessing data
 ├── predict/                                         # Contains the code responsible for making predictions
 │   ├── prediction.py                                # Contains the logic to load the trained model and make predictions.
+├── runtime.txt                                      # Python version specification (python-3.11)
 └── requirements.txt                                 # A list of Python dependencies required to run the project.
 ```
 ## Setup Instructions
