@@ -23,55 +23,120 @@ features_df, merged_data, locality_unique, property_type_unique, property_subtyp
 # Custom CSS for Styling
 st.markdown("""
 <style>
+/* Body Styling */
 body {
-    background-color: #f8f9fc;
+    background-color: #e0f7fa;
     font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
 }
+
+/* Title and description */
 .title {
-    font-size: 60px; /* Increased font size */
+    font-size: 48px;
     font-weight: bold;
-    color: #4CAF50;
+    color: #00796b;
     text-align: center;
-    padding-top: 20px;
-    margin-bottom: 10px;
+    padding-top: 40px;
+    margin-bottom: 20px;
 }
+
 .description {
-    font-size: 24px; /* Increased font size */
-    color: #333;
+    font-size: 20px;
+    color: #444;
     text-align: center;
-    margin-bottom: 30px;
-    line-height: 1.5; /* Better readability */
+    margin-bottom: 40px;
+    line-height: 1.6;
 }
+
+/* Card Container */
 .card {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+/* Section Headers */
+h4.centered-title {
+    font-size: 26px;
+    font-weight: bold;
+    color: #00796b;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+/* Prediction Output Styling */
 .output {
-    font-size: 32px;
-    color: #28a745;
+    font-size: 36px;
+    color: #388e3c;
     font-weight: bold;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 30px;
     margin-bottom: 20px;
 }
+
+/* Button Styling */
 .stButton>button {
-    background-color: #4CAF50;
+    background-color: #00796b;
     color: white;
-    font-size: 16px;
-    border-radius: 5px;
-    padding: 10px;
+    font-size: 18px;
+    border-radius: 12px;
+    padding: 16px 24px;
     cursor: pointer;
     border: none;
+    width: 100%;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
+
 .stButton>button:hover {
-    background-color: #388E3C;
+    background-color: #004d40;
+    transform: translateY(-4px);
 }
+
+.stButton>button:active {
+    background-color: #004d40;
+    transform: translateY(0);
+}
+
+/* Input Fields */
+.stInput input {
+    height: 50px;
+    font-size: 18px;
+    padding-left: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+.stSelectbox, .stNumberInput {
+    font-size: 18px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+/* Map Styling */
 .st-folium {
     margin-top: 0 !important;
     padding-top: 0 !important;
+}
+
+/* Footer and Disclaimer */
+.footer {
+    font-size: 14px;
+    color: #888;
+    text-align: center;
+    margin-top: 50px;
+    padding: 20px;
+    background-color: #00796b;
+    color: white;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -242,13 +307,13 @@ lift = 1 if lift == 'Yes' else 0
 # Test MAE (Mean Absolute Error)
 TEST_MAE = 48726.73  # Predefined MAE value
 
-if st.button("Predict Price"):
+if st.button("🔮 Predict Price", use_container_width=True):
     if not (postal_code and municipality):
         st.warning("Please select a location from the map.")
     elif property_type is None or property_subtype is None or state_of_building is None or number_of_rooms is None or living_area is None:
         st.warning("Please complete all property details.")
     else:
-        with st.spinner('Calculating price...'):
+        with st.spinner('🔄Calculating price...'):
             start_time = time()
             input_data, cat_features = prepare_input_data(features_df, merged_data, postal_code, municipality, 
                                                           property_type, property_subtype, state_of_building, 
