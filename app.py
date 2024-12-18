@@ -237,7 +237,9 @@ garden = 1 if garden == 'Yes' else 0
 swimming_pool = 1 if swimming_pool == 'Yes' else 0
 lift = 1 if lift == 'Yes' else 0
 
-# Validation for prediction
+# Test MAE (Mean Absolute Error)
+TEST_MAE = 48726.73  # Predefined MAE value
+
 if st.button("Predict Price"):
     if not (postal_code and municipality):
         st.warning("Please select a location from the map.")
@@ -255,15 +257,38 @@ if st.button("Predict Price"):
             predicted_price = predict_price(model, input_data, cat_features)
             prediction_time = time() - start_time
 
-            # Customized Price Display with Comments
-            st.markdown(f"<p class='output'>Predicted Price: <strong>€{predicted_price:,.2f}</strong></p>", unsafe_allow_html=True)
-            st.markdown(f"<p class='description'>Calculation Time: {prediction_time:.2f} seconds</p>", unsafe_allow_html=True)
-            st.markdown("<p class='description' style='color: #777;'>Please note that this prediction is based on historical data and may not reflect current market trends.</p>", unsafe_allow_html=True)
+            # Calculate Confidence Interval
+            lower_bound = predicted_price - TEST_MAE
+            upper_bound = predicted_price + TEST_MAE
 
-# Footer
-st.markdown("""
----
-<div style='text-align: center; color: #888;'>
-    <small>Disclaimer: This prediction is based on historical data and is for informational purposes only.</small>
-</div>
-""", unsafe_allow_html=True)
+            # Display Predicted Price with Confidence Interval
+            st.markdown(f"""
+            <p class='output'>
+                Predicted Price: <strong>€{predicted_price:,.2f}</strong>
+            </p>
+            """, unsafe_allow_html=True)
+
+            st.markdown(f"""
+            <p class='description' style='color: #555;'>
+                Confidence Interval: €{lower_bound:,.2f} - €{upper_bound:,.2f}
+                <br>
+                Calculation Time: {prediction_time:.2f} seconds
+            </p>
+            """, unsafe_allow_html=True)
+
+            # Explain MAE and Prediction Variability
+            st.markdown("""
+            <div style="color: #777; text-align: center;">
+                <p><strong>About the Prediction:</strong> The model's Mean Absolute Error (MAE) is €48,726.73, 
+                which means that predictions typically deviate from the actual price by this amount on average.</p>
+                <p>This confidence interval provides a range within which the actual price is likely to fall.</p>
+            </div>
+            """, unsafe_allow_html=True)
+
+            # Disclaimer
+            st.markdown("""
+            <p class='description' style='color: #777;'>
+                Note: This prediction is based on historical data and may not fully reflect current market trends.
+            </p>
+            """, unsafe_allow_html=True)
+
