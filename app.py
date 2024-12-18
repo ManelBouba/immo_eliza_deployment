@@ -20,7 +20,7 @@ def load_data_and_model():
 # Load resources
 features_df, merged_data, locality_unique, property_type_unique, property_subtype_unique, state_of_building_unique, model = load_data_and_model()
 
-# Custom CSS for styling
+# Custom CSS for Styling
 st.markdown("""
 <style>
 body {
@@ -28,7 +28,7 @@ body {
     font-family: 'Arial', sans-serif;
 }
 .title {
-    font-size: 45px;
+    font-size: 60px; /* Increased font size */
     font-weight: bold;
     color: #4CAF50;
     text-align: center;
@@ -36,10 +36,11 @@ body {
     margin-bottom: 10px;
 }
 .description {
-    font-size: 18px;
+    font-size: 24px; /* Increased font size */
     color: #333;
     text-align: center;
     margin-bottom: 30px;
+    line-height: 1.5; /* Better readability */
 }
 .card {
     background: white;
@@ -79,6 +80,7 @@ body {
 st.markdown("<p class='title'>House Price Prediction</p>", unsafe_allow_html=True)
 st.markdown("<p class='description'>Select a location, provide property details, and get a price estimate instantly!</p>", unsafe_allow_html=True)
 
+
 # Map Section
 st.markdown("<div class='card'><h4 class='centered-title'>📍 Select a Location</h4></div>", unsafe_allow_html=True)
 
@@ -106,7 +108,7 @@ def add_markers_in_bounds(start_lat, start_lon, end_lat, end_lon):
         ).add_to(marker_cluster)
 
 # Display the map with the clustering approach
-st_map = st_folium(m, width=1400, height=450)
+st_map = st_folium(m, width=1400, height=1000)
 
 # Safely get the bounds of the visible map area after panning/zooming
 bounds = st_map.get("bounds", None)
